@@ -1,5 +1,3 @@
-package com.example.devopsproject.ctrls;
-
 import com.example.devopsproject.entities.User;
 import com.example.devopsproject.repps.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,21 +18,22 @@ public class UserController {
     }
 
     @GetMapping("/users/all")
-    List<User> getAllUsers() {
+    List<User> getAllUsers(){
         return userRepo.findAll();
     }
 
-    // ajouter un utilisateur
+    //ajouter un utilisateur
     @PostMapping("/users/add")
-    User newUser(@RequestBody User newUser) {
+    User newUser(@RequestBody User newUser){
         return userRepo.save(newUser);
     }
 
-    // get User by id
+    //get User by id
     @GetMapping("/users/{idu}")
     User getUserById(@PathVariable Long idu) {
         return userRepo.findById(idu).orElse(null);
     }
+
 
     @PutMapping("/users/update/{idu}")
     public ResponseEntity<User> updateUser(@PathVariable long idu, @RequestBody User userDetails) {
@@ -51,16 +50,18 @@ public class UserController {
         return ResponseEntity.ok(updateUser);
     }
 
+
     @DeleteMapping("/users/delete/{idu}")
-    public ResponseEntity<Void> deleteUser(@PathVariable long idu) {
+    public ResponseEntity<User> deleteUser(@PathVariable long idu){
         userRepo.deleteById(idu);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return new  ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/users/byRole/{roleu}")
     List<User> getUsersByRole(@PathVariable String roleu) {
         return userRepo.findByRoleu(roleu);
     }
+
 
     @DeleteMapping("/users/deleteByRoleu/{roleu}")
     public ResponseEntity<String> deleteUsersByRoleu(@PathVariable String roleu) {
@@ -70,9 +71,13 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No users found with the specified role");
         }
 
-        // yejbdhom kol w baed yfasskhhom
+        //yejbdhom kol w baed yfasskhhom
         userRepo.deleteInBatch(usersToDelete);
 
         return ResponseEntity.ok("Users deleted successfully");
     }
+
+
+
+
 }
