@@ -50,13 +50,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				 <configuration>
-             				   <source>11</source> <!-- or your Java version -->
-       				         <target>11</target> <!-- or your Java version -->
-              			  <compilerArgs>
-                 			   <arg>-Xlint:deprecation</arg>
-               				 </compilerArgs>
-          			  </configuration>
 			</plugin>
 		</plugins>
 	</build>
